@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="so" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xanaanada Carurta Xakiim Bin Xizaam - Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --background: #f5f6fa;
+            --sidebar-width: 250px;
+        }
+
+        body {
+            background: var(--background);
+            min-height: 100vh;
+        }
+
+        /* Login Page */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 400px;
+            text-align: center;
+        }
+
+        .login-box .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            background: #2c3e50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 40px;
+            overflow: hidden;
+        }
+
+        .login-box .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .login-box h2 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: var(--secondary-color);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #219a52;
+        }
+
+        .btn-danger {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-edit {
+            background: var(--warning-color);
+            color: white;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+        .btn-delete {
+            background: var(--accent-color);
+            color: white;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+        .btn-pdf {
+            background: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+
+        .btn-print {
+            background: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+
+        .btn-paid {
+            background: var(--success-color);
+            color: white;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .btn-unpaid {
+            background: var(--accent-color);
+            color: white;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* Dashboard Layout */
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar .logo-container {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .sidebar .logo-container .logo-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: white;
+            padding: 5px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .sidebar .logo-container .logo-img:hover {
+            opacity: 0.8;
+        }
+
+        .sidebar .logo-container .logo-upload {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 25px;
+            height: 25px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            color: white;
+        }
+
+        .sidebar .school-name {
+            font-size: 14px;
+            margin-top: 10px;
+            font-weight: bold;
+            line-height: 1.4;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .nav-menu li {
+            padding: 15px 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-menu li:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .nav-menu li.active {
+            background: var(--secondary-color);
+            border-left: 4px solid white;
+        }
+
+        .nav-menu li i {
+            font-size: 20px;
+            width: 25px;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 20px;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 28px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .content-section {
+            display: none;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Form Styles */
+        .registration-form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group input[type="file"] {
+            padding: 10px;
+            border: 2px dashed #ddd;
+            background: #f8f9fa;
+        }
+
+        .form-group input[type="date"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        /* Table Styles */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th {
+            background: #2c3e50;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 500;
+        }
+
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        .search-box::after {
+            content: "🔍";
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+
+        /* Exam Results */
+        .exam-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Payment Section */
+        .payment-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-paid {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-unpaid {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .class-filter {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .class-filter select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        @media print {
+            .sidebar, .header-actions, .btn, .search-box, .class-filter, .logo-upload {
+                display: none !important;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 0;
+            }
+            .content-section {
+                box-shadow: none;
+                padding: 0;
+            }
+            body {
+                background: white;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+            .main-content {
+                margin-left: 200px;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container" style="display: flex;">
+        <div class="login-box">
+            <div class="logo" id="loginLogo">
+                <img src="" alt="Logo" id="loginLogoImg" style="display: none;">
+                <span id="loginLogoPlaceholder">📚</span>
+            </div>
+            <h2>Xanaanada Carurta<br>Xakiim Bin Xizaam</h2>
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="username" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Enter password">
+            </div>
+            <button class="btn btn-primary" onclick="login()">Login</button>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="dashboard" style="display: none;">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo-container">
+                <img src="" alt="Logo" id="sidebarLogoImg" class="logo-img" style="display: none;">
+                <span id="sidebarLogoPlaceholder" style="font-size: 40px;">📚</span>
+                <div class="logo-upload" onclick="uploadLogo()" title="Upload Logo">
+                    📷
+                </div>
+                <input type="file" id="logoUploadInput" accept="image/*" style="display: none;" onchange="changeLogo(event)">
+                <div class="school-name">XANAANADA CARURTA<br>XAKIIM BIN XIZAAM</div>
+            </div>
+            <ul class="nav-menu">
+                <li class="active" onclick="showSection('diwaanGalin')">
+                    <i>📝</i> Diwaan Galin
+                </li>
+                <li onclick="showSection('xogtaArdayda')">
+                    <i>📊</i> Xogta Ardayda
+                </li>
+                <li onclick="showSection('examka')">
+                    <i>📋</i> Examka
+                </li>
+                <li onclick="showSection('lacagBixinta')">
+                    <i>💰</i> Lacag Bixinta
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h1 id="pageTitle">Diwaan Galin</h1>
+                <div class="header-actions">
+                    <button class="btn btn-pdf" onclick="generatePDF()">📄 PDF</button>
+                    <button class="btn btn-print" onclick="printPage()">🖨️ Print</button>
+                    <button class="btn btn-danger" onclick="logout()">Logout</button>
+                </div>
+            </div>
+
+            <!-- Diwaan Galin Section -->
+            <div id="diwaanGalin" class="content-section active">
+                <div class="registration-form">
+                    <h2 style="color: #2c3e50; margin-bottom: 20px;">📝 Formka Diwaan Galinta Ardayga</h2>
+                    <form id="studentForm" onsubmit="saveStudent(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Magaca Ardayga *</label>
+                                <input type="text" id="studentName" required placeholder="Gali magaca ardayga">
+                            </div>
+                            <div class="form-group">
+                                <label>Magaca Waalidka *</label>
+                                <input type="text" id="parentName" required placeholder="Gali magaca waalidka">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Numberka Waalidka *</label>
+                                <input type="tel" id="parentPhone" required placeholder="Gali numberka waalidka">
+                            </div>
+                            <div class="form-group">
+                                <label>ID (Automatic)</label>
+                                <input type="text" id="studentId" readonly placeholder="Auto-generated">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Fee (Lacagta) *</label>
+                                <input type="number" id="fee" required placeholder="Gali lacagta">
+                            </div>
+                            <div class="form-group">
+                                <label>Image Upload</label>
+                                <input type="file" id="studentImage" accept="image/*">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Fasalka *</label>
+                                <select id="classLevel" required>
+                                    <option value="">-- Dooro Fasalka --</option>
+                                    <option value="Fasalka 1">Fasalka 1</option>
+                                    <option value="Fasalka 2">Fasalka 2</option>
+                                    <option value="Fasalka 3">Fasalka 3</option>
+                                    <option value="Fasalka 4">Fasalka 4</option>
+                                    <option value="Fasalka 5">Fasalka 5</option>
+                                    <option value="Fasalka 6">Fasalka 6</option>
+                                    <option value="Fasalka 7">Fasalka 7</option>
+                                    <option value="Fasalka 8">Fasalka 8</option>
+                                    <option value="Fasalka 9">Fasalka 9</option>
+                                    <option value="Fasalka 10">Fasalka 10</option>
+                                    <option value="Fasalka 11">Fasalka 11</option>
+                                    <option value="Fasalka 12">Fasalka 12</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Taariikhda *</label>
+                                <input type="date" id="date" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>1. Qeybta 5maalin (Sabti ilaa Arbaco) *</label>
+                                <select id="qeybta5maalin" required>
+                                    <option value="">-- Dooro Maadada --</option>
+                                    <option value="Farbarka">Farbarka</option>
+                                    <option value="Xifdiga Quraanka">Xifdiga Quraanka</option>
+                                    <option value="Tasxiixa Quraanka">Tasxiixa Quraanka</option>
+                                    <option value="Ijaazada">Ijaazada</option>
+                                    <option value="Kutubada Aas-aasiga">Kutubada Aas-aasiga</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>2. Qeybta Qamiista iyo Jimcaha - Sharecada *</label>
+                                <select id="qeybtaSharecada" required>
+                                    <option value="">-- Dooro Maadada --</option>
+                                    <option value="Safiinaha">Safiinaha</option>
+                                    <option value="Naxwaha">Naxwaha</option>
+                                    <option value="Tafsiirka">Tafsiirka</option>
+                                    <option value="Arbaciinka">Arbaciinka</option>
+                                    <option value="Taysiir Axkaamu Tajwiid">Taysiir Axkaamu Tajwiid</option>
+                                    <option value="Fiqiga">Fiqiga</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>3. Qeybta Iskuulka Aas-aasiga *</label>
+                                <select id="qeybtaIskuulka" required>
+                                    <option value="">-- Dooro Maadada --</option>
+                                    <option value="Carabi">Carabi</option>
+                                    <option value="Tarbiyo">Tarbiyo</option>
+                                    <option value="Soomaali">Soomaali</option>
+                                    <option value="Xisaab">Xisaab</option>
+                                    <option value="English">English</option>
+                                    <option value="Saynis">Saynis</option>
+                                    <option value="Cilmiga Bulshada">Cilmiga Bulshada</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success" style="width: 100%; margin-top: 20px;">💾 Save</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Xogta Ardayda Section -->
+            <div id="xogtaArdayda" class="content-section">
+                <h2 style="color: #2c3e50; margin-bottom: 20px;">📊 Xogta Ardayda</h2>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Raadi magaca ardayga, numberka waalidka, ama ID..." onkeyup="searchStudents()">
+                </div>
+                <div class="table-container">
+                    <table id="studentsTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Magaca Ardayga</th>
+                                <th>Magaca Waalidka</th>
+                                <th>Numberka Waalidka</th>
+                                <th>Fee</th>
+                                <th>Fasalka</th>
+                                <th>Taariikhda</th>
+                                <th>5maalin</th>
+                                <th>Sharecada</th>
+                                <th>Iskuulka</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTableBody">
+                            <!-- Student data will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Exam Section -->
+            <div id="examka" class="content-section">
+                <h2 style="color: #2c3e50; margin-bottom: 20px;">📋 Examka Ardayda</h2>
+                <div class="exam-container">
+                    <div class="form-group">
+                        <label>Dooro Fasalka</label>
+                        <select id="examClassSelect" onchange="loadExamStudents()">
+                            <option value="">-- Dooro Fasalka --</option>
+                            <option value="Fasalka 1">Fasalka 1</option>
+                            <option value="Fasalka 2">Fasalka 2</option>
+                            <option value="Fasalka 3">Fasalka 3</option>
+                            <option value="Fasalka 4">Fasalka 4</option>
+                            <option value="Fasalka 5">Fasalka 5</option>
+                            <option value="Fasalka 6">Fasalka 6</option>
+                            <option value="Fasalka 7">Fasalka 7</option>
+                            <option value="Fasalka 8">Fasalka 8</option>
+                            <option value="Fasalka 9">Fasalka 9</option>
+                            <option value="Fasalka 10">Fasalka 10</option>
+                            <option value="Fasalka 11">Fasalka 11</option>
+                            <option value="Fasalka 12">Fasalka 12</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Dooro Ardayga</label>
+                        <select id="examStudentSelect" onchange="loadStudentSubjects()">
+                            <option value="">-- Dooro Ardayga --</option>
+                        </select>
+                    </div>
+                    <div id="examSubjects" style="margin-top: 20px;">
+                        <!-- Subject results will be shown here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lacag Bixinta Section -->
+            <div id="lacagBixinta" class="content-section">
+                <h2 style="color: #2c3e50; margin-bottom: 20px;">💰 Lacag Bixinta</h2>
+                <div class="class-filter">
+                    <div class="form-group">
+                        <label>Dooro Fasalka si aad u aragto ardayda</label>
+                        <select id="paymentClassFilter" onchange="loadPaymentTable()">
+                            <option value="">-- Dooro Fasalka --</option>
+                            <option value="Fasalka 1">Fasalka 1</option>
+                            <option value="Fasalka 2">Fasalka 2</option>
+                            <option value="Fasalka 3">Fasalka 3</option>
+                            <option value="Fasalka 4">Fasalka 4</option>
+                            <option value="Fasalka 5">Fasalka 5</option>
+                            <option value="Fasalka 6">Fasalka 6</option>
+                            <option value="Fasalka 7">Fasalka 7</option>
+                            <option value="Fasalka 8">Fasalka 8</option>
+                            <option value="Fasalka 9">Fasalka 9</option>
+                            <option value="Fasalka 10">Fasalka 10</option>
+                            <option value="Fasalka 11">Fasalka 11</option>
+                            <option value="Fasalka 12">Fasalka 12</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Magaca Ardayga</th>
+                                <th>Fasalka</th>
+                                <th>Fee</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="paymentTableBody">
+                            <!-- Payment data will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let students = JSON.parse(localStorage.getItem('students')) || [];
+        let currentStudentId = null;
+        let isLoggedIn = localStorage.getItem('isLoggedIn') || false;
+        let schoolLogo = localStorage.getItem('schoolLogo') || '';
+
+        // Load logo on page load
+        function loadLogo() {
+            if (schoolLogo) {
+                document.getElementById('sidebarLogoImg').src = schoolLogo;
+                document.getElementById('sidebarLogoImg').style.display = 'block';
+                document.getElementById('sidebarLogoPlaceholder').style.display = 'none';
+                
+                document.getElementById('loginLogoImg').src = schoolLogo;
+                document.getElementById('loginLogoImg').style.display = 'block';
+                document.getElementById('loginLogoPlaceholder').style.display = 'none';
+            } else {
+                document.getElementById('sidebarLogoImg').style.display = 'none';
+                document.getElementById('sidebarLogoPlaceholder').style.display = 'inline';
+                
+                document.getElementById('loginLogoImg').style.display = 'none';
+                document.getElementById('loginLogoPlaceholder').style.display = 'inline';
+            }
+        }
+
+        // Upload logo
+        function uploadLogo() {
+            document.getElementById('logoUploadInput').click();
+        }
+
+        // Change logo
+        function changeLogo(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    schoolLogo = e.target.result;
+                    localStorage.setItem('schoolLogo', schoolLogo);
+                    loadLogo();
+                    alert('Logo-ga si guul leh ayaa loo bedelay!');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Check if already logged in
+        function checkLoginStatus() {
+            loadLogo();
+            if (isLoggedIn === 'true' || isLoggedIn === true) {
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'flex';
+                generateStudentId();
+                loadStudentsTable();
+                loadExamStudents();
+                loadPaymentTable();
+            } else {
+                document.getElementById('loginPage').style.display = 'flex';
+                document.getElementById('dashboard').style.display = 'none';
+            }
+        }
+
+        // Login function
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === 'xikma' && password === '123') {
+                localStorage.setItem('isLoggedIn', 'true');
+                isLoggedIn = true;
+                
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'flex';
+                generateStudentId();
+                loadStudentsTable();
+                loadExamStudents();
+                loadPaymentTable();
+            } else {
+                alert('Username ama Password waa khalad!');
+            }
+        }
+
+        // Logout function
+        function logout() {
+            if (confirm('Ma hubtaa inaad ka baxdo?')) {
+                localStorage.removeItem('isLoggedIn');
+                isLoggedIn = false;
+                
+                document.getElementById('dashboard').style.display = 'none';
+                document.getElementById('loginPage').style.display = 'flex';
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+            }
+        }
+
+        // Show section function
+        function showSection(sectionName) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.getElementById(sectionName).classList.add('active');
+            
+            const menuItems = document.querySelectorAll('.nav-menu li');
+            menuItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('li').classList.add('active');
+            
+            const titles = {
+                'diwaanGalin': 'Diwaan Galin',
+                'xogtaArdayda': 'Xogta Ardayda',
+                'examka': 'Examka',
+                'lacagBixinta': 'Lacag Bixinta'
+            };
+            document.getElementById('pageTitle').textContent = titles[sectionName];
+            
+            if (sectionName === 'xogtaArdayda') {
+                loadStudentsTable();
+            } else if (sectionName === 'examka') {
+                loadExamStudents();
+            } else if (sectionName === 'lacagBixinta') {
+                loadPaymentTable();
+            }
+        }
+
+        // Generate PDF
+        function generatePDF() {
+            const printWindow = window.open('', '_blank');
+            const currentSection = document.querySelector('.content-section.active');
+            const title = document.getElementById('pageTitle').textContent;
+            
+            printWindow.document.write(`
+                <html>
+                    <head>
+                        <title>${title} - Xanaanada Carurta Xakiim Bin Xizaam</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; padding: 20px; }
+                            h1 { color: #2c3e50; text-align: center; }
+                            h2 { color: #2c3e50; }
+                            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                            th { background: #2c3e50; color: white; padding: 10px; text-align: left; }
+                            td { padding: 10px; border-bottom: 1px solid #ddd; }
+                            .header-info { text-align: center; margin-bottom: 30px; }
+                            .school-name { font-size: 20px; font-weight: bold; color: #2c3e50; }
+                            .date-print { text-align: right; margin-bottom: 20px; color: #666; }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="header-info">
+                            <div class="school-name">XANAANADA CARURTA XAKIIM BIN XIZAAM</div>
+                            <p>${title}</p>
+                        </div>
+                        <div class="date-print">
+                            Taariikhda: ${new Date().toLocaleDateString('so-SO')}
+                        </div>
+                        ${currentSection.innerHTML}
+                    </body>
+                </html>
+            `);
+            
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(() => {
+                printWindow.print();
+            }, 500);
+        }
+
+        // Print page
+        function printPage() {
+            window.print();
+        }
+
+        // Generate student ID
+        function generateStudentId() {
+            const year = new Date().getFullYear();
+            const random = Math.floor(Math.random() * 10000);
+            const id = `STU-${year}-${random}`;
+            document.getElementById('studentId').value = id;
+            return id;
+        }
+
+        // Save student
+        function saveStudent(event) {
+            event.preventDefault();
+            
+            const student = {
+                id: document.getElementById('studentId').value,
+                name: document.getElementById('studentName').value,
+                parentName: document.getElementById('parentName').value,
+                parentPhone: document.getElementById('parentPhone').value,
+                fee: document.getElementById('fee').value,
+                classLevel: document.getElementById('classLevel').value,
+                date: document.getElementById('date').value,
+                qeybta5maalin: document.getElementById('qeybta5maalin').value,
+                qeybtaSharecada: document.getElementById('qeybtaSharecada').value,
+                qeybtaIskuulka: document.getElementById('qeybtaIskuulka').value,
+                image: null,
+                paymentStatus: 'unpaid'
+            };
+            
+            const imageFile = document.getElementById('studentImage').files[0];
+            if (imageFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    student.image = e.target.result;
+                    students.push(student);
+                    localStorage.setItem('students', JSON.stringify(students));
+                    alert('Ardayga si guul leh ayaa loo diwaan geliyay!');
+                    document.getElementById('studentForm').reset();
+                    generateStudentId();
+                    loadStudentsTable();
+                    loadExamStudents();
+                    loadPaymentTable();
+                };
+                reader.readAsDataURL(imageFile);
+            } else {
+                students.push(student);
+                localStorage.setItem('students', JSON.stringify(students));
+                alert('Ardayga si guul leh ayaa loo diwaan geliyay!');
+                document.getElementById('studentForm').reset();
+                generateStudentId();
+                loadStudentsTable();
+                loadExamStudents();
+                loadPaymentTable();
+            }
+        }
+
+        // Load students table
+        function loadStudentsTable() {
+            const tbody = document.getElementById('studentsTableBody');
+            tbody.innerHTML = '';
+            
+            students.forEach(student => {
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td>${student.id}</td>
+                    <td>
+                        ${student.image ? `<img src="${student.image}" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px; vertical-align: middle;">` : ''}
+                        ${student.name}
+                    </td>
+                    <td>${student.parentName}</td>
+                    <td>${student.parentPhone}</td>
+                    <td>$${student.fee}</td>
+                    <td>${student.classLevel || '-'}</td>
+                    <td>${student.date || '-'}</td>
+                    <td>${student.qeybta5maalin || '-'}</td>
+                    <td>${student.qeybtaSharecada || '-'}</td>
+                    <td>${student.qeybtaIskuulka || '-'}</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="editStudent('${student.id}')">Edit</button>
+                        <button class="btn btn-delete" onclick="deleteStudent('${student.id}')">Delete</button>
+                    </td>
+                `;
+            });
+        }
+
+        // Search students
+        function searchStudents() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredStudents = students.filter(student => 
+                student.name.toLowerCase().includes(searchTerm) ||
+                student.parentName.toLowerCase().includes(searchTerm) ||
+                student.parentPhone.includes(searchTerm) ||
+                student.id.toLowerCase().includes(searchTerm) ||
+                (student.classLevel && student.classLevel.toLowerCase().includes(searchTerm)) ||
+                (student.date && student.date.includes(searchTerm)) ||
+                (student.qeybta5maalin && student.qeybta5maalin.toLowerCase().includes(searchTerm)) ||
+                (student.qeybtaSharecada && student.qeybtaSharecada.toLowerCase().includes(searchTerm)) ||
+                (student.qeybtaIskuulka && student.qeybtaIskuulka.toLowerCase().includes(searchTerm))
+            );
+            
+            const tbody = document.getElementById('studentsTableBody');
+            tbody.innerHTML = '';
+            
+            filteredStudents.forEach(student => {
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td>${student.id}</td>
+                    <td>
+                        ${student.image ? `<img src="${student.image}" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px; vertical-align: middle;">` : ''}
+                        ${student.name}
+                    </td>
+                    <td>${student.parentName}</td>
+                    <td>${student.parentPhone}</td>
+                    <td>$${student.fee}</td>
+                    <td>${student.classLevel || '-'}</td>
+                    <td>${student.date || '-'}</td>
+                    <td>${student.qeybta5maalin || '-'}</td>
+                    <td>${student.qeybtaSharecada || '-'}</td>
+                    <td>${student.qeybtaIskuulka || '-'}</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="editStudent('${student.id}')">Edit</button>
+                        <button class="btn btn-delete" onclick="deleteStudent('${student.id}')">Delete</button>
+                    </td>
+                `;
+            });
+        }
+
+        // Edit student
+        function editStudent(id) {
+            const student = students.find(s => s.id === id);
+            if (student) {
+                currentStudentId = id;
+                document.getElementById('studentName').value = student.name;
+                document.getElementById('parentName').value = student.parentName;
+                document.getElementById('parentPhone').value = student.parentPhone;
+                document.getElementById('fee').value = student.fee;
+                document.getElementById('studentId').value = student.id;
+                document.getElementById('classLevel').value = student.classLevel || '';
+                document.getElementById('date').value = student.date || '';
+                document.getElementById('qeybta5maalin').value = student.qeybta5maalin || '';
+                document.getElementById('qeybtaSharecada').value = student.qeybtaSharecada || '';
+                document.getElementById('qeybtaIskuulka').value = student.qeybtaIskuulka || '';
+                
+                showSection('diwaanGalin');
+                
+                const submitBtn = document.querySelector('#studentForm button[type="submit"]');
+                submitBtn.textContent = 'Update';
+                submitBtn.onclick = function(event) {
+                    updateStudent(event, id);
+                };
+            }
+        }
+
+        // Update student
+        function updateStudent(event, id) {
+            event.preventDefault();
+            
+            const student = students.find(s => s.id === id);
+            if (student) {
+                student.name = document.getElementById('studentName').value;
+                student.parentName = document.getElementById('parentName').value;
+                student.parentPhone = document.getElementById('parentPhone').value;
+                student.fee = document.getElementById('fee').value;
+                student.classLevel = document.getElementById('classLevel').value;
+                student.date = document.getElementById('date').value;
+                student.qeybta5maalin = document.getElementById('qeybta5maalin').value;
+                student.qeybtaSharecada = document.getElementById('qeybtaSharecada').value;
+                student.qeybtaIskuulka = document.getElementById('qeybtaIskuulka').value;
+                
+                localStorage.setItem('students', JSON.stringify(students));
+                alert('Xogta ardayga waa la update gareeyay!');
+                
+                document.getElementById('studentForm').reset();
+                generateStudentId();
+                
+                const submitBtn = document.querySelector('#studentForm button[type="submit"]');
+                submitBtn.textContent = '💾 Save';
+                submitBtn.onclick = saveStudent;
+                
+                loadStudentsTable();
+                loadExamStudents();
+                loadPaymentTable();
+                currentStudentId = null;
+            }
+        }
+
+        // Delete student
+        function deleteStudent(id) {
+            if (confirm('Ma hubtaa inaad masaxdo ardaygan?')) {
+                students = students.filter(s => s.id !== id);
+                localStorage.setItem('students', JSON.stringify(students));
+                loadStudentsTable();
+                loadExamStudents();
+                loadPaymentTable();
+                alert('Ardayga waa la masaxay!');
+            }
+        }
+
+        // Load exam students based on class
+        function loadExamStudents() {
+            const classLevel = document.getElementById('examClassSelect').value;
+            const select = document.getElementById('examStudentSelect');
+            select.innerHTML = '<option value="">-- Dooro Ardayga --</option>';
+            
+            const filteredStudents = classLevel ? 
+                students.filter(s => s.classLevel === classLevel) : 
+                students;
+            
+            filteredStudents.forEach(student => {
+                const option = document.createElement('option');
+                option.value = student.id;
+                option.textContent = `${student.name} (${student.id})`;
+                select.appendChild(option);
+            });
+        }
+
+        // Load student subjects for exam
+        function loadStudentSubjects() {
+            const studentId = document.getElementById('examStudentSelect').value;
+            const examSubjectsDiv = document.getElementById('examSubjects');
+            
+            if (!studentId) {
+                examSubjectsDiv.innerHTML = '';
+                return;
+            }
+            
+            const student = students.find(s => s.id === studentId);
+            if (student) {
+                let allSubjects = [
+                    student.qeybta5maalin,
+                    student.qeybtaSharecada,
+                    student.qeybtaIskuulka
+                ].filter(subject => subject && subject.trim() !== '');
+                
+                let html = `
+                    <h3 style="color: #2c3e50; margin-bottom: 20px;">${student.name} - ${student.classLevel} - Maadooyinka</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Maadada</th>
+                                    <th>Natiijada</th>
+                                    <th>Darajada</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+                
+                allSubjects.forEach(subject => {
+                    html += `
+                        <tr>
+                            <td>${subject}</td>
+                            <td>
+                                <input type="number" id="exam_${subject.replace(/\s+/g, '_')}" 
+                                       placeholder="Gali natiijada" min="0" max="100" style="width: 100%; padding: 8px;">
+                            </td>
+                            <td>
+                                <select id="grade_${subject.replace(/\s+/g, '_')}" style="width: 100%; padding: 8px;">
+                                    <option value="A">A - Excellent</option>
+                                    <option value="B">B - Good</option>
+                                    <option value="C">C - Average</option>
+                                    <option value="D">D - Poor</option>
+                                    <option value="F">F - Fail</option>
+                                </select>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                html += `
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="btn btn-success" onclick="saveExamResults('${studentId}')" style="margin-top: 20px;">💾 Save Results</button>
+                `;
+                
+                examSubjectsDiv.innerHTML = html;
+            }
+        }
+
+        // Save exam results
+        function saveExamResults(studentId) {
+            const student = students.find(s => s.id === studentId);
+            if (student) {
+                student.examResults = {};
+                let allSubjects = [
+                    student.qeybta5maalin,
+                    student.qeybtaSharecada,
+                    student.qeybtaIskuulka
+                ].filter(subject => subject && subject.trim() !== '');
+                
+                allSubjects.forEach(subject => {
+                    const score = document.getElementById(`exam_${subject.replace(/\s+/g, '_')}`).value;
+                    const grade = document.getElementById(`grade_${subject.replace(/\s+/g, '_')}`).value;
+                    if (score) {
+                        student.examResults[subject] = { score: score, grade: grade };
+                    }
+                });
+                
+                localStorage.setItem('students', JSON.stringify(students));
+                alert('Natiijada examka waa la save gareeyay!');
+            }
+        }
+
+        // Load payment table based on class filter
+        function loadPaymentTable() {
+            const classFilter = document.getElementById('paymentClassFilter').value;
+            const tbody = document.getElementById('paymentTableBody');
+            tbody.innerHTML = '';
+            
+            const filteredStudents = classFilter ? 
+                students.filter(s => s.classLevel === classFilter) : 
+                students;
+            
+            if (classFilter && filteredStudents.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 20px; color: #999;">
+                            Ma jiraan arday ku jira fasalkan
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            filteredStudents.forEach(student => {
+                const row = tbody.insertRow();
+                const statusClass = student.paymentStatus === 'paid' ? 'status-paid' : 'status-unpaid';
+                const statusText = student.paymentStatus === 'paid' ? 'Bixiyay' : 'Mabixin';
+                
+                row.innerHTML = `
+                    <td>${student.id}</td>
+                    <td>${student.name}</td>
+                    <td>${student.classLevel || '-'}</td>
+                    <td>$${student.fee}</td>
+                    <td><span class="payment-status ${statusClass}">${statusText}</span></td>
+                    <td>
+                        <button class="btn ${student.paymentStatus === 'paid' ? 'btn-unpaid' : 'btn-paid'}" 
+                                onclick="togglePayment('${student.id}')">
+                            ${student.paymentStatus === 'paid' ? '❌ Mabixin' : '✅ Bixiyay'}
+                        </button>
+                    </td>
+                `;
+            });
+        }
+
+        // Toggle payment status
+        function togglePayment(studentId) {
+            const student = students.find(s => s.id === studentId);
+            if (student) {
+                if (student.paymentStatus === 'paid') {
+                    student.paymentStatus = 'unpaid';
+                    alert('Ardayga lacagta waa uu BIXIN!');
+                } else {
+                    student.paymentStatus = 'paid';
+                    alert('Ardayga lacagta wuu BIXIYAY!');
+                }
+                
+                localStorage.setItem('students', JSON.stringify(students));
+                loadPaymentTable();
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkLoginStatus();
+            if (isLoggedIn === 'true' || isLoggedIn === true) {
+                generateStudentId();
+            }
+        });
+    </script>
+</body>
+</html>
